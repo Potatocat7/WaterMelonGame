@@ -49,7 +49,7 @@ public class SortController : MonoBehaviour
         {
             //キー入力用
             FruitController fruit = Instantiate(fruitPrefab, keyFruitOrderTransform);
-            fruit.SettingOrder(i+1);
+            fruit.SettingOrder(i + 1);
             fruit.View.SetBodyType(RigidbodyType2D.Static);
             fruit.View.ChangeColliderActive(false);
             fruitControllerList.Add(fruit);
@@ -190,7 +190,7 @@ public class SortController : MonoBehaviour
                 break;
         }
     }
-    
+
     /// <summary>
     /// 並び替えたリストを取得
     /// </summary>
@@ -206,12 +206,12 @@ public class SortController : MonoBehaviour
     /// <param name="beforeIndex"></param>
     /// <param name="afterIndex"></param>
     /// <param name="fruit"></param>
-    public void SetFruitControllerList(int beforeIndex,int afterIndex,FruitController fruit)
+    public void SetFruitControllerList(int beforeIndex, int afterIndex, FruitController fruit)
     {
-        if(beforeIndex >= fruitControllerList.Count || beforeIndex < 0)
+        if (beforeIndex >= fruitControllerList.Count || beforeIndex < 0)
         {
             Debug.LogError("fruitControllerList.Count:" + fruitControllerList.Count);
-            Debug.LogError("beforeIndex:"+ beforeIndex);
+            Debug.LogError("beforeIndex:" + beforeIndex);
             return;
         }
         if (afterIndex >= fruitControllerList.Count || afterIndex < 0)

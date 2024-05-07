@@ -38,9 +38,9 @@ public class PlayerController : MonoBehaviour
         Vector3 changePos = this.transform.position;
         changePos.x += vec;
         playerTransform.position = changePos;
-        if (changePos.x <= wallLeftTransform.position.x 
+        if (changePos.x <= wallLeftTransform.position.x
             + (settingFruit.GetFruitSize())
-            + (wallLeftTransform.sizeDelta.x/2)
+            + (wallLeftTransform.sizeDelta.x / 2)
             + 1)//落とすときに壁の接触を避けるため
         {
             limitLeft = true;

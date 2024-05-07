@@ -251,14 +251,14 @@ public class StartController : MonoBehaviour
         }).AddTo(this);
 
         startButton.onClick.AsObservable()
-        .Subscribe(_ => 
+        .Subscribe(_ =>
         {
             SaveFruitList();
             ///メインシーンへの遷移
             SceneManager.LoadScene(NextScene);
         }).AddTo(this);
     }
-    
+
     private void SaveFruitList()
     {
         List<FruitModel> savelist = new List<FruitModel>();
@@ -268,7 +268,7 @@ public class StartController : MonoBehaviour
         {
             for (int size = 0; size < sizeSortController.GetFruitList().Count; size++)
             {
-                if(i+1 == sizeSortController.GetFruitList()[size].Model.Number)
+                if (i + 1 == sizeSortController.GetFruitList()[size].Model.Number)
                 {
                     sizeNum = size + 1;
                 }

@@ -24,7 +24,7 @@ public class FruitController : MonoBehaviour
     /// <summary>果物の大きさ取得用 </summary>
     [SerializeField] private RectTransform fruitRectTransform;
     /// <summary>view見かけに関する操作 </summary>
-    [SerializeField] public FruitView View;     
+    [SerializeField] public FruitView View;
     /// <summary>modelデータに関する操作 </summary>
     public FruitModel Model;
     /// <summary>拡大中の接触で吹き飛ばす速度 </summary>

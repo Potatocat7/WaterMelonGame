@@ -12,7 +12,6 @@ using Cysharp.Threading.Tasks;
 public class DragMovement : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
     /// <summary>親オブジェクト親のソートコントローラー情報</summary>
-    //private ReactiveProperty<SortController> parentSortController = new ReactiveProperty<SortController>();
     private SortController parentSortController;
     /// <summary>親オブジェクトの位置情報</summary>
     private Transform parentTransform;
@@ -21,7 +20,7 @@ public class DragMovement : MonoBehaviour, IDragHandler, IBeginDragHandler, IEnd
     /// <summary>（果物種類の数-1）*2</summary>
     private const int FruitDivisionNumber = 14;
     /// <summary>ドラッグ前のindex</summary>
-    private int beforIndex;
+    private int beforeIndex;
 
     /// <summary>
     /// ドラッグ開始処理
@@ -30,11 +29,12 @@ public class DragMovement : MonoBehaviour, IDragHandler, IBeginDragHandler, IEnd
     public void OnBeginDrag(PointerEventData eventData)
     {
         Transform transform1;
-        beforIndex = (transform1 = transform).GetSiblingIndex();
+        beforeIndex = (transform1 = transform).GetSiblingIndex();
         parentTransform = transform1.parent;
         transform.SetParent(parentTransform.parent, false);
         GetComponent<CanvasGroup>().blocksRaycasts = false;
     }
+
     /// <summary>
     /// ドラッグ操作　※　スタート画面のみ
     /// </summary>
@@ -43,6 +43,7 @@ public class DragMovement : MonoBehaviour, IDragHandler, IBeginDragHandler, IEnd
     {
         transform.position = eventData.position;
     }
+
     /// <summary>
     /// ドロップの位置情報処理
     /// </summary>
@@ -56,6 +57,7 @@ public class DragMovement : MonoBehaviour, IDragHandler, IBeginDragHandler, IEnd
         int siblingIndex = (int)Math.Round(data / 2, 0, MidpointRounding.AwayFromZero);
         return siblingIndex;
     }
+
     /// <summary>
     /// ドラッグ終了処理
     /// </summary>
@@ -68,28 +70,28 @@ public class DragMovement : MonoBehaviour, IDragHandler, IBeginDragHandler, IEnd
         int siblingIndex = GetSiblingIndex(this.gameObject.transform.position.x, parentRectTransform.rect.width);
         transform.SetSiblingIndex(siblingIndex);
 
-        GetParentSortController(
-            success =>
-            {
-                parentSortController = success;
-                parentSortController.SetFruitControllerList(beforIndex, siblingIndex, this.gameObject.GetComponent<FruitController>());
-            },
-            () =>
-            {
-                Debug.LogError("NoComponent<SortController>");
-            }).Forget();
+        SetFruitControllerListIfParentSortControllerIsNotNull(beforeIndex, siblingIndex, GetComponent<FruitController>());
     }
 
-    private async UniTask GetParentSortController(Action<SortController> success,Action failure)
+    /// <summary>
+    /// 親のSortController確認とリスト追加
+    /// </summary>
+    /// <param name="beforeIndex"></param>
+    /// <param name="afterIndex"></param>
+    /// <param name="fruit"></param>
+    private void SetFruitControllerListIfParentSortControllerIsNotNull(int beforeIndex, int afterIndex, FruitController fruit)
     {
-        if (parentTransform.parent.GetComponent<SortController>())
+        if (parentSortController == null)
         {
-            success.Invoke(parentTransform.parent.GetComponent<SortController>());
+            parentSortController = parentTransform.parent.GetComponent<SortController>();
         }
-        else
-        {
-            failure.Invoke();
-        }
-    }
 
-}
+        if (parentSortController == null)
+        {
+            Debug.LogWarning("parentSortController is null.");
+            return;
+        }
+
+        parentSortController.SetFruitControllerList(beforeIndex, afterIndex, fruit);
+    }
+} 
