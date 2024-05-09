@@ -68,7 +68,7 @@ public class EndController : MonoBehaviour
             (success) =>
             {
                 Debug.Log("success");
-                BestScoreMeshPro.text = "Best:" + success.ToString();
+                //BestScoreMeshPro.text = "Best:" + success.ToString();
             },
             () =>
             {

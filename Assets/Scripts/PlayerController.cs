@@ -28,11 +28,11 @@ public class PlayerController : MonoBehaviour
         limitRight = false;
         if (vector)
         {
-            vec = -1;
+            vec = -3;
         }
         else
         {
-            vec = 1;
+            vec = 3;
         }
         //左右に上限が必要
         Vector3 changePos = this.transform.position;
@@ -41,14 +41,14 @@ public class PlayerController : MonoBehaviour
         if (changePos.x <= wallLeftTransform.position.x
             + (settingFruit.GetFruitSize())
             + (wallLeftTransform.sizeDelta.x / 2)
-            + 1)//落とすときに壁の接触を避けるため
+            + 6)//落とすときに壁の接触を避けるため
         {
             limitLeft = true;
         }
         if (changePos.x >= wallRightTransform.position.x
             - (settingFruit.GetFruitSize())
             - (wallLeftTransform.sizeDelta.x / 2)
-            - 1)//落とすときに壁の接触を避けるため
+            - 6)//落とすときに壁の接触を避けるため
         {
             limitRight = true;
         }
@@ -66,13 +66,13 @@ public class PlayerController : MonoBehaviour
         if (changePos.x <= wallLeftTransform.position.x
             + (settingFruit.GetFruitSize())
             + (wallLeftTransform.sizeDelta.x / 2)
-            + 1)//落とすときに壁の接触を避けるため
+            + 6)//落とすときに壁の接触を避けるため
         {
             limitLeft = true;
             changePos.x = wallLeftTransform.position.x
             + (settingFruit.GetFruitSize())
             + (wallLeftTransform.sizeDelta.x / 2)
-            + 1;
+            + 6;
             this.transform.position = changePos;
         }
         else
@@ -82,13 +82,13 @@ public class PlayerController : MonoBehaviour
         if (changePos.x >= wallRightTransform.position.x
             - (settingFruit.GetFruitSize())
             - (wallLeftTransform.sizeDelta.x / 2)
-            - 1)//落とすときに壁の接触を避けるため
+            - 6)//落とすときに壁の接触を避けるため
         {
             limitRight = true;
             changePos.x = wallRightTransform.position.x
             - (settingFruit.GetFruitSize())
             - (wallLeftTransform.sizeDelta.x / 2)
-            - 1;
+            - 6;
             this.transform.position = changePos;
         }
         else
